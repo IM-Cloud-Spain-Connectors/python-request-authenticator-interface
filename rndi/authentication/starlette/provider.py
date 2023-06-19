@@ -28,6 +28,7 @@ def provide_request_authenticator(
         logger: LoggerAdapter,
         credentials_repository: CredentialsRepository,
         drivers: Optional[Dict[str, RequestAuthenticatorDriverProvider]] = None,
+        default: str = UnauthorizedRequestAuthenticatorAdapter.DRIVER,
 ) -> RequestAuthenticator:
     supported: Dict[str, RequestAuthenticatorDriverProvider] = {
         OAuth10aRequestAuthenticatorAdapter.DRIVER: provide_oauth10a_request_authenticator_adapter,
@@ -37,9 +38,7 @@ def provide_request_authenticator(
     if isinstance(drivers, dict):
         supported.update(drivers)
 
-    # default value for the REQUEST_AUTH_DRIVER is 'oauth10a' as is the
-    # authentication method used in CloudBlue Commerce for APS integrations.
-    driver = config.get(REQUEST_AUTH_DRIVER, UnauthorizedRequestAuthenticatorAdapter.DRIVER)
+    driver = config.get(REQUEST_AUTH_DRIVER, default)
 
     def _unsupported_driver(_, __, ___) -> RequestAuthenticator:
         raise ValueError(f"Unsupported request authenticator driver {driver}.")
