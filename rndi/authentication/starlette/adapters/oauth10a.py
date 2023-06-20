@@ -70,7 +70,12 @@ class OAuth10aRequestAuthenticatorAdapter(RequestAuthenticator):
 
         try:
             authorization = {}
-            for parameter in header.split(' ', 2)[1].replace('"', '').split(','):
+            # 1. Remove the spaces (" ").
+            # 2. Remove the double quotes ('"').
+            # 3. Remove the first 5 characters of the string (the word "OAuth").
+            # 4. Split the string by coma (,).
+            for parameter in header.replace(' ', '').replace('"', '')[5:].split(','):
+                # split each parameter by equal ("=") to get key-value items.
                 key_value = parameter.split('=')
                 authorization[key_value[0].strip()] = key_value[1].strip()
 

@@ -15,10 +15,10 @@ def test_oauth10a_request_authenticator_should_authenticate_given_request(
 ):
     request = make_request('GET', 'https://cosmopolitan.aks.int.zone/aps/2/collections/service-plans', {
         'authorization': 'OAuth '
-                         'oauth_consumer_key="wotAQOwTUXZrkZqfOMrpEAtTC362SJi8",'
-                         'oauth_signature_method="HMAC-SHA1",'
-                         'oauth_timestamp="1686919540",'
-                         'oauth_nonce="RZQd4m3S0Iu",'
+                         'oauth_consumer_key="wotAQOwTUXZrkZqfOMrpEAtTC362SJi8", '
+                         'oauth_signature_method="HMAC-SHA1", '
+                         'oauth_timestamp="1686919540", '
+                         'oauth_nonce="RZQd4m3S0Iu", '
                          'oauth_version="1.0",'
                          'oauth_signature="XcvHhpsvfYz2%2F1PiI19axOJNe0E%3D"',
     })
